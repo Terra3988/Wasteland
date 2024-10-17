@@ -1,5 +1,7 @@
 package io.wasteland;
 
+import io.wasteland.level.Level;
+import io.wasteland.level.LevelRenderer;
 import io.wasteland.level.Tesselator;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Keyboard;
@@ -23,6 +25,9 @@ public class Wasteland implements Runnable {
 
     // GAME
     public Timer timer;
+    public Level level;
+    public LevelRenderer levelRenderer;
+    private int texture;
 
     private void initHardware() throws LWJGLException {
         Display.setDisplayMode(new DisplayMode(WINDOW_WIDTH, WINDOW_HEIGHT));
@@ -37,6 +42,7 @@ public class Wasteland implements Runnable {
 
     private void initGame() {
         timer = new Timer();
+        level = new Level(32, 32, 32);
     }
 
     private void initRender() {
@@ -50,6 +56,10 @@ public class Wasteland implements Runnable {
         glFrontFace(GL_CW);
 
         glDepthFunc(GL_LEQUAL);
+        texture = Textures.loadTexture("/textures.png", GL_NEAREST);
+        Textures.bind(texture);
+
+        levelRenderer = new LevelRenderer(level);
     }
 
     private void init() throws LWJGLException {
@@ -60,7 +70,7 @@ public class Wasteland implements Runnable {
 
     private void loop() {
         while (!exitRequested) {
-            handleEvents();
+            processEvents();
             timer.advanceTime();
 
             update(timer.delta);
@@ -68,7 +78,7 @@ public class Wasteland implements Runnable {
         }
     }
 
-    private void handleEvents() {
+    private void processEvents() {
         if (Display.isCloseRequested() || Keyboard.isKeyDown(Keyboard.KEY_ESCAPE))
             requestExit();
 
@@ -78,17 +88,10 @@ public class Wasteland implements Runnable {
 
     }
 
-    private final Tesselator tesselator = new Tesselator();
-
     private void render(float dt) {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        tesselator.color(1, 0, 0);
-        tesselator.vertex(0.5f, 0.5f, 0);
-        tesselator.vertex(0.5f, -0.5f, 0);
-        tesselator.vertex(-0.5f, -0.5f, 0);
-        tesselator.vertex(-0.5f, 0.5f, 0);
-        tesselator.flush();
+        levelRenderer.render();
 
         Display.update();
     }

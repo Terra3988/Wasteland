@@ -67,6 +67,11 @@ public class Tesselator {
         }
     }
 
+    public void vertexUV(float x, float y, float z, float u, float v) {
+        texture(u, v);
+        vertex(x, y, z);
+    }
+
     public void flush() {
         glEnableClientState(GL_VERTEX_ARRAY);
         glVertexPointer(3, 0, this.vertexBuffer);
