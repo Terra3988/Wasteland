@@ -31,6 +31,8 @@ public class Chunk {
     }
 
     private void build() {
+
+        dirty = false;
         glNewList(this.lists, GL_COMPILE);
         tesselator.init();
 
@@ -39,8 +41,11 @@ public class Chunk {
                 for (int y = minY; y < maxY; y++) {
                     int blockId = level.getBlock(x, y, z);
 
-                    if (blockId > 0) {
-                        Tile.DIRT.render(tesselator, level, x, y, z - 100);
+                    if (blockId == 0) {
+                        Tile.DIRT.render(tesselator, level, x, y, z);
+                    }
+                    else if (blockId == 1) {
+                        Tile.GRASS.render(tesselator, level, x, y, z);
                     }
                 }
             }

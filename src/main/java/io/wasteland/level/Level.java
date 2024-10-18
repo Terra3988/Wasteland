@@ -21,7 +21,9 @@ public class Level {
             for (int z = 0; z < this.height; z++) {
                 for (int y = 0; y < this.depth; y++) {
                     int index = (y * this.height + z) * this.width + x;
-                    //if (y == this.depth - 1)
+                    if (y == this.depth - 1)
+                        setBlock(x, y, z, Tile.GRASS.getBlockId());
+                    else
                         setBlock(x, y, z, Tile.DIRT.getBlockId());
                 }
             }

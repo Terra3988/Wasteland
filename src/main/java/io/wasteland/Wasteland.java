@@ -8,6 +8,7 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
+import org.lwjgl.util.glu.GLU;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -53,9 +54,16 @@ public class Wasteland implements Runnable {
         glEnable(GL_TEXTURE_2D);
         glEnable(GL_CULL_FACE);
 
-        glFrontFace(GL_CW);
+        //glFrontFace(GL_CW);
 
         glDepthFunc(GL_LEQUAL);
+
+        glMatrixMode(GL_PROJECTION);
+        glLoadIdentity();
+        GLU.gluPerspective(45.0f, 1280.0f / 720.0f, 0.05f, 1000f);
+
+        glMatrixMode(GL_MODELVIEW);
+
         texture = Textures.loadTexture("/textures.png", GL_NEAREST);
         Textures.bind(texture);
 
@@ -90,6 +98,8 @@ public class Wasteland implements Runnable {
 
     private void render(float dt) {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        glLoadIdentity();
+        glTranslatef(-12, -25, -50);
 
         levelRenderer.render();
 

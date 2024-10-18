@@ -2,7 +2,8 @@ package io.wasteland.level;
 
 public class Tile {
 
-    public static Tile DIRT = new Tile(0, 1);
+    public static Tile DIRT = new Tile(0, 0);
+    public static Tile GRASS = new Tile(1, 1);
 
     private final byte blockId;
     private final int textureId;
