@@ -6,7 +6,8 @@ group = 'io.wasteland'
 version = '1.0-SNAPSHOT'
 
 project.ext.slf4j_version = "2.0.16"
-project.ext.lwjglVersion = "2.9.3"
+project.ext.lwjglVersion = "3.3.4"
+project.ext.jomlVersion = "1.10.7"
 project.ext.lwjglNatives = "natives-windows"
 
 repositories {
@@ -16,10 +17,21 @@ repositories {
 dependencies {
     api "org.slf4j:slf4j-api:$slf4j_version"
     implementation "org.slf4j:slf4j-simple:$slf4j_version"
+    implementation platform("org.lwjgl:lwjgl-bom:$lwjglVersion")
 
-    implementation 'org.lwjgl.lwjgl:lwjgl:2.9.3'
-    implementation 'org.lwjgl.lwjgl:lwjgl_util:2.9.3'
-    runtimeOnly 'org.lwjgl.lwjgl:lwjgl-platform:2.9.3:natives-windows'
+    implementation "org.lwjgl:lwjgl"
+    implementation "org.lwjgl:lwjgl-glfw"
+    implementation "org.lwjgl:lwjgl-openal"
+    implementation "org.lwjgl:lwjgl-opengl"
+    implementation "org.lwjgl:lwjgl-stb"
+    implementation "org.lwjgl:lwjgl-tinyfd"
+    runtimeOnly "org.lwjgl:lwjgl::$lwjglNatives"
+    runtimeOnly "org.lwjgl:lwjgl-glfw::$lwjglNatives"
+    runtimeOnly "org.lwjgl:lwjgl-openal::$lwjglNatives"
+    runtimeOnly "org.lwjgl:lwjgl-opengl::$lwjglNatives"
+    runtimeOnly "org.lwjgl:lwjgl-stb::$lwjglNatives"
+    runtimeOnly "org.lwjgl:lwjgl-tinyfd::$lwjglNatives"
+    implementation "org.joml:joml:${jomlVersion}"
 }
 
 jar {
