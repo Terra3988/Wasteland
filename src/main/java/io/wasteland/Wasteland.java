@@ -30,7 +30,7 @@ public class Wasteland implements Runnable {
         input.init(window.getWindow());
 
         shader = ShaderLoader.load("/shaders/blit.vsh", "/shaders/blit.fsh");
-        texture = TextureLoader.load("/block.png");
+        texture = TextureLoader.load("/atlas.png");
 
         camera = new Camera(new Vector3f(0, 8, -5), 90.0f);
         glEnable(GL_TEXTURE_2D);
