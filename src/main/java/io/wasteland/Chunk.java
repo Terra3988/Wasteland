@@ -1,5 +1,7 @@
 package io.wasteland;
 
+import org.joml.Math;
+
 public class Chunk {
     public byte[] blocks;
 
@@ -13,14 +15,23 @@ public class Chunk {
                 for (int x = 0; x < CHUNK_SIZE; x++) {
                     int index = (y * CHUNK_SIZE + z) * CHUNK_SIZE + x;
 
-                    blocks[index] = 1;
+                    int id = (y <= (Math.sin(x*0.3f) * 0.5f + 0.5f) * 10) ? 1 : 0;
+                    blocks[index] = (byte) id;
                 }
             }
         }
     }
 
+    public boolean isIn(int x, int y, int z) {
+        return !(x < 0 || y < 0 || z < 0 || x >= CHUNK_SIZE || y >= CHUNK_SIZE || z >= CHUNK_SIZE);
+    }
+
+    public boolean isBlocked(int x, int y, int z) {
+        return isIn(x, y, z) && get(x, y, z) > 0;
+    }
+
     public int get(int x, int y, int z) {
-        if (x <= 0 || y <= 0 || z <= 0 || x >= CHUNK_SIZE || y >= CHUNK_SIZE || z >= CHUNK_SIZE)
+        if (x < 0 || y < 0 || z < 0 || x >= CHUNK_SIZE || y >= CHUNK_SIZE || z >= CHUNK_SIZE)
             return 0;
         int index = (y * CHUNK_SIZE + z) * CHUNK_SIZE + x;
         return (int) blocks[index];

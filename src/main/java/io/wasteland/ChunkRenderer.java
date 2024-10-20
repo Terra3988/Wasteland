@@ -26,7 +26,7 @@ public class ChunkRenderer {
         float z1 = z0 + 1f;
 
         // top
-        if(chunk.get(x, y + 1, z) == 0) {
+        if(!chunk.isBlocked(x, y + 1, z)) {
             tessellator.vertex(x1, y1, z1, 0, 0);
             tessellator.vertex(x1, y1, z0, 0, 1);
             tessellator.vertex(x0, y1, z0, 1, 1);
@@ -36,7 +36,7 @@ public class ChunkRenderer {
             tessellator.vertex(x1, y1, z1, 0, 0);
         }
         // bottom
-        if(chunk.get(x, y - 1, z) == 0) {
+        if(!chunk.isBlocked(x, y - 1, z)) {
             tessellator.vertex(x0, y0, z1, 0, 0);
             tessellator.vertex(x0, y0, z0, 0, 1);
             tessellator.vertex(x1, y0, z0, 1, 1);
@@ -46,7 +46,7 @@ public class ChunkRenderer {
             tessellator.vertex(x0, y0, z1, 0, 0);
         }
         // left
-        if(chunk.get(x + 1, y, z) == 0) {
+        if(!chunk.isBlocked(x + 1, y, z)) {
             tessellator.vertex(x1, y1, z1, 0, 0);
             tessellator.vertex(x1, y0, z1, 0, 1);
             tessellator.vertex(x1, y0, z0, 1, 1);
@@ -56,7 +56,7 @@ public class ChunkRenderer {
             tessellator.vertex(x1, y1, z1, 0, 0);
         }
         // right
-        if(chunk.get(x - 1, y, z) == 0) {
+        if(!chunk.isBlocked(x - 1, y, z)) {
             tessellator.vertex(x0, y1, z0, 0, 0);
             tessellator.vertex(x0, y0, z0, 0, 1);
             tessellator.vertex(x0, y0, z1, 1, 1);
@@ -66,7 +66,7 @@ public class ChunkRenderer {
             tessellator.vertex(x0, y1, z0, 0, 0);
         }
         // far
-        if(chunk.get(x, y, z + 1) == 0) {
+        if(!chunk.isBlocked(x, y, z + 1)) {
             tessellator.vertex(x0, y1, z1, 0, 0);
             tessellator.vertex(x0, y0, z1, 0, 1);
             tessellator.vertex(x1, y0, z1, 1, 1);
@@ -76,7 +76,7 @@ public class ChunkRenderer {
             tessellator.vertex(x0, y1, z1, 0, 0);
         }
         // near
-        if(chunk.get(x, y, z - 1) == 0) {
+        if(!chunk.isBlocked(x, y, z - 1)) {
             tessellator.vertex(x1, y1, z0, 0, 0);
             tessellator.vertex(x1, y0, z0, 0, 1);
             tessellator.vertex(x0, y0, z0, 1, 1);
