@@ -50,6 +50,8 @@ public class Camera {
     public void turn(float x, float y) {
         pitch += y;
         yaw += x;
+
+        pitch = Math.min(Math.max(-89.0f, pitch), 89.0f);
     }
 
     public void update() {
