@@ -2,12 +2,10 @@ package io.wasteland;
 
 import io.wasteland.loaders.ShaderLoader;
 import io.wasteland.loaders.TextureLoader;
+import io.wasteland.renderer.*;
 import org.joml.Vector3f;
-import org.lwjgl.BufferUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.nio.FloatBuffer;
 
 import static org.lwjgl.opengl.GL46.*;
 
@@ -40,11 +38,11 @@ public class Wasteland implements Runnable {
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-        ChunkRenderer renderer = new ChunkRenderer();
-        Chunk chunk = new Chunk();
-        renderer.render(chunk);
+        Level level = new Level(16, 16, 1);
+        LevelRenderer renderer = new LevelRenderer(level);
+        renderer.rebuild();
 
-        window.lockCursor();
+        window.lockCursor(true);
 
         while(!window.isWindowShouldClose()) {
             if (input.isJustPressed(Input.KEY_ESCAPE)) {
@@ -74,7 +72,7 @@ public class Wasteland implements Runnable {
             shader.uniformMatrix("uProjview", camera.getProjview());
             texture.bind();
 
-            chunk.draw();
+            renderer.render();
 
             input.pollEvents();
             window.swapBuffers();

@@ -1,4 +1,4 @@
-package io.wasteland;
+package io.wasteland.renderer;
 
 import static org.lwjgl.opengl.GL46.*;
 

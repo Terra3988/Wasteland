@@ -1,5 +1,6 @@
 package io.wasteland;
 
+import io.wasteland.renderer.Mesh;
 import org.joml.Math;
 
 public class Chunk {
@@ -10,7 +11,15 @@ public class Chunk {
     public Mesh chunkMesh;
     private boolean dirty = true;
 
-    public Chunk() {
+    public int chunkX;
+    public int chunkY;
+    public int chunkZ;
+
+    public Chunk(int cx, int cy, int cz) {
+        chunkX = cx;
+        chunkY = cy;
+        chunkZ = cz;
+
         blocks = new byte[CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE];
 
         for (int y = 0; y < CHUNK_SIZE; y++) {
@@ -18,7 +27,7 @@ public class Chunk {
                 for (int x = 0; x < CHUNK_SIZE; x++) {
                     int index = (y * CHUNK_SIZE + z) * CHUNK_SIZE + x;
 
-                    int id = (y <= (Math.sin(x*0.3f) * 0.5f + 0.5f) * 10) ? 1 : 0;
+                    int id = ((cy + y) <= (Math.sin((cx + x)*0.3f) * 0.5f + 0.5f) * 10) ? 1 : 0;
                     blocks[index] = (byte) id;
                 }
             }

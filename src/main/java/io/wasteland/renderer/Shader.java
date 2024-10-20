@@ -1,4 +1,4 @@
-package io.wasteland;
+package io.wasteland.renderer;
 
 import org.joml.Matrix4f;
 import org.lwjgl.BufferUtils;

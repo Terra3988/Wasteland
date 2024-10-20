@@ -1,4 +1,4 @@
-package io.wasteland;
+package io.wasteland.renderer;
 
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.opengl.GL;
@@ -48,8 +48,12 @@ public class Window {
     public void swapBuffers() {
         glfwSwapBuffers(window);
     }
-    public void lockCursor() {
-        glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+
+    public void lockCursor(boolean state) {
+        if (state)
+            glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+        else
+            glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
     }
 
     public void setWindowShouldClose(boolean state) {

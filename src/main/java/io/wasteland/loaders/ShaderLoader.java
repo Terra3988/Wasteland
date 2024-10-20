@@ -1,6 +1,6 @@
 package io.wasteland.loaders;
 
-import io.wasteland.Shader;
+import io.wasteland.renderer.Shader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

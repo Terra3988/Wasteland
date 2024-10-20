@@ -1,4 +1,4 @@
-package io.wasteland;
+package io.wasteland.renderer;
 
 import org.joml.*;
 import org.joml.Math;
@@ -31,20 +31,22 @@ public class Camera {
         update();
     }
 
+    float speed = 0.1f;
+
     public void moveRight() {
-        position.add(right.mul(0.001f));
+        position.add(right.mul(speed));
     }
 
     public void moveLeft() {
-        position.sub(right.mul(0.001f));
+        position.sub(right.mul(speed));
     }
 
     public void moveForward() {
-        position.add(front.mul(0.001f));
+        position.add(front.mul(speed));
     }
 
     public void moveBackward() {
-        position.sub(front.mul(0.001f));
+        position.sub(front.mul(speed));
     }
 
     public void turn(float x, float y) {

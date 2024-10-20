@@ -1,6 +1,6 @@
 package io.wasteland.loaders;
 
-import io.wasteland.Texture;
+import io.wasteland.renderer.Texture;
 import org.lwjgl.BufferUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

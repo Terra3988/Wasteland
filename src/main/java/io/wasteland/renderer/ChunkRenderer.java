@@ -1,4 +1,6 @@
-package io.wasteland;
+package io.wasteland.renderer;
+
+import io.wasteland.Chunk;
 
 public class ChunkRenderer {
     public void render(Chunk chunk) {
@@ -9,7 +11,7 @@ public class ChunkRenderer {
             for (int z = 0; z < chunk.CHUNK_SIZE; z++) {
                 for (int x = 0; x < chunk.CHUNK_SIZE; x++) {
                     if (chunk.get(x, y, z) != 0)
-                        renderBlock(tessellator, chunk, x, y, z);
+                        renderBlock(tessellator, chunk, chunk.chunkX * 16 + x, chunk.chunkY * 16 + y, chunk.chunkZ * 16 + z);
                 }
             }
         }
@@ -18,28 +20,31 @@ public class ChunkRenderer {
     }
 
     private void renderBlock(Tessellator tessellator, Chunk chunk, int x, int y, int z) {
+        int cx = x - chunk.chunkX * 16;
+        int cy = y - chunk.chunkY * 16;
+        int cz = z - chunk.chunkZ * 16;
         // top
-        if(!chunk.isBlocked(x, y + 1, z)) {
+        if(!chunk.isBlocked(cx, cy + 1, cz)) {
             renderBlockFace(tessellator, chunk, x, y, z, 0);
         }
         // bottom
-        if(!chunk.isBlocked(x, y - 1, z)) {
+        if(!chunk.isBlocked(cx, cy - 1, cz)) {
             renderBlockFace(tessellator, chunk, x, y, z, 1);
         }
         // left
-        if(!chunk.isBlocked(x + 1, y, z)) {
+        if(!chunk.isBlocked(cx + 1, cy, cz)) {
             renderBlockFace(tessellator, chunk, x, y, z, 2);
         }
         // right
-        if(!chunk.isBlocked(x - 1, y, z)) {
+        if(!chunk.isBlocked(cx - 1, cy, cz)) {
             renderBlockFace(tessellator, chunk, x, y, z, 3);
         }
         // far
-        if(!chunk.isBlocked(x, y, z + 1)) {
+        if(!chunk.isBlocked(cx, cy, cz + 1)) {
             renderBlockFace(tessellator, chunk, x, y, z, 5);
         }
         // near
-        if(!chunk.isBlocked(x, y, z - 1)) {
+        if(!chunk.isBlocked(cx, cy, cz - 1)) {
             renderBlockFace(tessellator, chunk, x, y, z, 4);
         }
     }

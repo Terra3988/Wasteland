@@ -1,4 +1,4 @@
-package io.wasteland;
+package io.wasteland.renderer;
 
 import org.lwjgl.BufferUtils;
 
