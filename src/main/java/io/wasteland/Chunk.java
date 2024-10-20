@@ -7,6 +7,9 @@ public class Chunk {
 
     public final int CHUNK_SIZE = 16;
 
+    public Mesh chunkMesh;
+    private boolean dirty = true;
+
     public Chunk() {
         blocks = new byte[CHUNK_SIZE * CHUNK_SIZE * CHUNK_SIZE];
 
@@ -22,16 +25,32 @@ public class Chunk {
         }
     }
 
-    public boolean isIn(int x, int y, int z) {
+    public void setDirty(boolean state) {
+        dirty = state;
+    }
+
+    public void draw() {
+        if (!dirty)
+            chunkMesh.draw();
+    }
+
+    public void set(int x, int y, int z, int id) {
+        if(!isInChunk(x, y, z))
+            return;
+        int index = (y * CHUNK_SIZE + z) * CHUNK_SIZE + x;
+        blocks[index] = (byte) id;
+    }
+
+    public boolean isInChunk(int x, int y, int z) {
         return !(x < 0 || y < 0 || z < 0 || x >= CHUNK_SIZE || y >= CHUNK_SIZE || z >= CHUNK_SIZE);
     }
 
     public boolean isBlocked(int x, int y, int z) {
-        return isIn(x, y, z) && get(x, y, z) > 0;
+        return isInChunk(x, y, z) && get(x, y, z) > 0;
     }
 
     public int get(int x, int y, int z) {
-        if (x < 0 || y < 0 || z < 0 || x >= CHUNK_SIZE || y >= CHUNK_SIZE || z >= CHUNK_SIZE)
+        if (!isInChunk(x, y, z))
             return 0;
         int index = (y * CHUNK_SIZE + z) * CHUNK_SIZE + x;
         return (int) blocks[index];

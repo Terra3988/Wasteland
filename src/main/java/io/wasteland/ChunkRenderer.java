@@ -1,7 +1,8 @@
 package io.wasteland;
 
 public class ChunkRenderer {
-    public Mesh render(Chunk chunk) {
+    public void render(Chunk chunk) {
+        chunk.setDirty(true);
         Tessellator tessellator = new Tessellator();
 
         for (int y = 0; y < chunk.CHUNK_SIZE; y++) {
@@ -12,8 +13,8 @@ public class ChunkRenderer {
                 }
             }
         }
-
-        return tessellator.build();
+        chunk.chunkMesh = tessellator.build();
+        chunk.setDirty(false);
     }
 
     private void renderBlock(Tessellator tessellator, Chunk chunk, int x, int y, int z) {

@@ -42,8 +42,7 @@ public class Wasteland implements Runnable {
 
         ChunkRenderer renderer = new ChunkRenderer();
         Chunk chunk = new Chunk();
-
-        Mesh mesh = renderer.render(chunk);
+        renderer.render(chunk);
 
         window.lockCursor();
 
@@ -75,7 +74,7 @@ public class Wasteland implements Runnable {
             shader.uniformMatrix("uProjview", camera.getProjview());
             texture.bind();
 
-            mesh.draw();
+            chunk.draw();
 
             input.pollEvents();
             window.swapBuffers();
